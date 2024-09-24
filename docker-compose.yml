@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword            # Substitua pela senha desejada do root
+      MYSQL_DATABASE: mydatabase                 # Substitua pelo nome do banco de dados desejado
+      MYSQL_USER: myuser                         # Substitua pelo nome do usuário desejado
+      MYSQL_PASSWORD: myuserpassword             # Substitua pela senha do usuário
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"          # Permite senha vazia para o root (opcional)
+      MYSQL_INITDB_SKIP_TZINFO: "1"              # Pula configuração de fuso horário (opcional)
+      MYSQL_ROOT_HOST: "%"                       # Permite acesso root de qualquer host (opcional)
+      MYSQL_INITDB_ARGS: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"  # Configurações adicionais (opcional)
+      MYSQL_ALLOW_PUBLIC_KEY_RETRIEVAL: "true"    # Permite recuperação da chave pública (necessário para resolver o erro)
+
+    ports:
+      - "3306:3306"                              # Porta padrão do MySQL (host:container)
+
+    volumes:
+      - /home/alexandre/Documentos/Database/MySql/data:/var/lib/mysql  # Caminho para persistir os dados do MySQL fora do contêiner
